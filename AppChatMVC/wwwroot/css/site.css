@@ -1,0 +1,107 @@
+﻿.bg-main {
+    background: #ff6e7f; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #bfe9ff, #ff6e7f); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #bfe9ff, #ff6e7f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.form-control {
+    border-radius: 50px;
+}
+
+.bg-white-80 {
+    background-color: rgb(255,255,255,0.8);
+}
+
+
+/*Thanh cuộn tin nhắn*/
+.pe-3 {
+    overflow-y: scroll;
+}
+/*Các button*/
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn {
+    width: 170px;
+    font-size: 18px;
+    background: #fff;
+    border: none;
+    color: #000;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.4s;
+}
+
+    .btn:hover {
+        box-shadow: inset 0 0 0 4px #ef476f, inset 0 0 0 8px #ffd166, inset 0 0 0 12px #06d6a0, inset 0 0 0 16px #118ab2;
+        background: #073b4c;
+        color: #fff;
+        border-radius: 50px;
+    }
+
+
+/*Hiệu ứng trôi từ dưới lên*/
+.down-to-up {
+    transform: translateX(0px);
+    animation-name: down-to-up;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+}
+
+@keyframes down-to-up {
+    0% {
+        transform: translatey(60px);
+    }
+
+    50% {
+        transform: translatey(0px);
+    }
+
+    100% {
+        transform: translatey(0px);
+    }
+}
+.down-to-up-2 {
+    transform: translateX(0px);
+    animation-name: down-to-up-2;
+    animation-duration: 3s;
+    animation-iteration-count: 1;
+}
+
+@keyframes down-to-up-2 {
+    0% {
+        transform: translatey(60px);
+    }
+
+    50% {
+        transform: translatey(0px);
+    }
+
+    100% {
+        transform: translatey(0px);
+    }
+}
+.down-to-up-3 {
+    transform: translateX(0px);
+    animation-name: down-to-up-3;
+    animation-duration: 4s;
+    animation-iteration-count: 1;
+}
+
+@keyframes down-to-up-3 {
+    0% {
+        transform: translatey(60px);
+    }
+
+    50% {
+        transform: translatey(0px);
+    }
+
+    100% {
+        transform: translatey(0px);
+    }
+}
+/*End*/

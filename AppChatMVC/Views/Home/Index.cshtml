@@ -1,0 +1,81 @@
+﻿@model IEnumerable<AppChatMVC.ViewModels.User.UserListItemVM>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<section class="bg-gradient">
+    @if (Context.GetUserId() != null)
+    {
+        <a class="btn btn-outline-danger" asp-action="Logout" asp-controller="Account">
+            <i class="bi bi-box-arrow-right"></i> ĐĂNG XUẤT
+        </a>
+    }
+    <div class="container mt-3">
+        <div class="row">
+
+            <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0">
+                <div class="d-flex justify-content-between mx-2">
+                    <h5 class="font-weight-bold mb-3 text-center text-lg-start">Bạn bè</h5>
+                    <div>Cài đặt <i class="bi bi-gear"></i></div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+
+                        <ul class="list-unstyled mb-0 pe-3">
+                            @foreach (var item in Model)
+                            {
+                                <li class="p-2 border-bottom" style="background-color: #eee;">
+                                    <a href="#!" class="d-flex justify-content-between">
+                                        <div class="d-flex flex-row">
+                                            <img src="@item.Avatar" alt="avatar"
+                                                 class="rounded-circle d-flex align-self-center me-3 shadow" width="60">
+                                            <div class="pt-1">
+                                                <p class="fw-bold mb-0">@item.Username</p>
+                                                <p class="small text-muted">NickName: @item.DisplayName</p>
+                                            </div>
+                                        </div>
+                                        @*<div class="pt-1">
+                                            <p class="small text-muted mb-1">Just now</p>
+                                            <span class="badge bg-danger float-end">1</span>
+                                        </div>*@
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-7 col-xl-8">
+
+                <div class="pt-3 pe-3" data-mdb-perfect-scrollbar="true"
+                     style="position: relative; height: 600px">
+                    <div class="d-flex flex-row justify-content-start">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
+                             alt="avatar 1" style="width: 45px; height: 100%;">
+                        <div>
+                            <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">
+                                Lorem ipsum
+                                dolor
+                                sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                                dolore
+                                magna aliqua.
+                            </p>
+                            <p class="small ms-3 mb-3 rounded-3 text-muted float-end">12:00 PM | Aug 13</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-muted d-flex justify-content-start align-items-center pt-3 mt-2">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
+                         alt="avatar 3" style="width: 40px; height: 100%;">
+                    <input type="text" class="form-control form-control-lg" id="exampleFormControlInput2"
+                           placeholder="Type message">
+                    <a class="ms-3 fs-2" href="#!"><i class="bi bi-send"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>

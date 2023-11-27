@@ -1,0 +1,33 @@
+﻿@model EShopMVCNet7.ViewModels.Account.LoginVM
+
+@{
+    ViewData["Title"] = "Login";
+}
+@section scripts{
+    <partial name="_Validation" />
+}
+
+<div class="row">
+    <h4 class="text-center mt-1 down-to-up">ĐĂNG NHẬP</h4>
+    <hr />
+    <div class="col-md-4 bg-gradient bg-white-80 m-auto mt-5 p-4 rounded shadow down-to-up-2">
+        <form asp-action="Login" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Username" class="control-label"></label> <span asp-validation-for="Username" class="text-danger"></span>
+                <input asp-for="Username" class="form-control" placeholder="Tên đăng nhập" />
+                
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label> <span asp-validation-for="Password" class="text-danger"></span>
+                <input asp-for="Password" class="form-control" type="password" placeholder="Mật khẩu" />
+                
+            </div>
+            <div class="form-group mt-5 row justify-content-evenly">
+                <input type="submit" value="Đăng nhập" class="btn btn-primary down-to-up-3" />
+                <a asp-action="Register" asp-controller="Account" class="btn down-to-up-3">ĐĂNG KÍ</a>
+            </div>
+            <p class="text-danger mt-5">Vui lòng đăng ký nếu bạn chưa có tài khoản!!!</p>
+        </form>
+    </div>
+</div>

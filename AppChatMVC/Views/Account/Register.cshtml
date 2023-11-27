@@ -1,0 +1,47 @@
+﻿@model AppChatMVC.Entities.AppUser
+@section Scripts{
+    <partial name="_Validation" />
+}
+@{
+    ViewData["Title"] = "Đăng kí tài khoản";
+}
+
+<div class="row">
+    <h4 class="text-center down-to-up my-1">ĐĂNG KÝ</h4>
+    <hr />
+    <div class="col-md-4 bg-gradient bg-white-80 m-auto mt-5 p-4 rounded shadow down-to-up-2">
+        <form asp-action="Register" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <a asp-action="Login" asp-controller="Account" class="nav-link"><i class="bi bi-arrow-left"></i> Quay về <i class="bi bi-emoji-wink"></i></a>
+            <div class="mt-3">
+                <label class="form-label">Tên đăng nhập</label> <span asp-validation-for="Username" class="text-danger fst-italic"></span>
+                <input asp-for="Username" class="form-control" placeholder="Tên đăng nhập" /> <!--asp-for để cho data đc gửi thằng vào nó-->
+
+            </div>
+            <div class="mt-3">
+                <label asp-for="Avatar" class="control-label"></label> <span asp-validation-for="Avatar" class="text-danger"></span>
+                <input asp-for="Avatar" type="file" class="form-control" accept="image/*" /><!--accept="image/*" thu gọn file. hiển thị hình ảnh-->
+
+            </div>
+            <div class="mt-3">
+                <label class="form-label">Mật khẩu</label> <span asp-validation-for="Password" class="text-danger fst-italic"></span>
+                <input type="password" asp-for="Password" class="form-control" placeholder="Mật khẩu" />
+
+            </div>
+            <div class="mt-3">
+                <label class="form-label">Nhập lại mật khẩu</label> <span asp-validation-for="Cfm_Password" class="text-danger fst-italic"></span>
+                <input type="password" asp-for="Cfm_Password" class="form-control" placeholder="Nhập lại mật khẩu" />
+
+            </div>
+            <div class="mt-3">
+                <label asp-for="DisplayName" class="control-label"></label> <span asp-validation-for="DisplayName" class="text-danger"></span>
+                <input asp-for="DisplayName" class="form-control" placeholder="Tên hiển thị" />
+
+            </div>
+            <hr />
+            <div class="mt-3 row justify-content-center">
+                <input type="submit" class="btn btn-success down-to-up-3" value="Đăng kí tài khoản" />
+            </div>
+        </form>
+    </div>
+</div>

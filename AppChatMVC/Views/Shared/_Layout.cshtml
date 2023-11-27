@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AppChatMVC</title>
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/AppChatMVC.styles.css" asp-append-version="true" />
+    <!--bootrap-->
+    <link href="~/lib/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" />
+    @RenderSection("head",false) <!--section style-->
+</head>
+<body class="bg-main">
+    <div class="container-fluid vh-100">
+        <partial name="_Notify" />
+            @RenderBody()
+        
+    </div>
+
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts",false)
+</body>
+</html>
