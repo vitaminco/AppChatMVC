@@ -15,11 +15,11 @@ namespace AppChatMVC.Controllers
         }
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            if (context.HttpContext.GetUserId() == null && context.HttpContext.GetRouteValue("Controller").ToString() !="Account")
+           /* if (context.HttpContext.GetUserId() == null && context.HttpContext.GetRouteValue("Controller").ToString() !="Account")
             {
                 context.Result = new RedirectToActionResult("Login", "Account", new { area = "" });
                 return;
-            }
+            }*/
         }
 
         protected void SetSuccessMesg(string msg)

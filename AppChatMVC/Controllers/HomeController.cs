@@ -3,27 +3,26 @@ using AppChatMVC.Entities;
 using AppChatMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
+
 namespace AppChatMVC.Controllers
 {
-    public class HomeController : ChattingAppControllerBase
+    [Authorize] //bắt buộc đăng nhập
+    public class HomeController : Controller
     {
-        public HomeController(AppChatDbContext db) : base(db)
+
+        /*public HomeController(AppChatDbContext db) : base(db)
         {
+        }*/
+        private readonly ILogger<HomeController> _logger;
+        public HomeController(ILogger<HomeController> logger)
+        {
+            _logger = logger;
         }
 
         public IActionResult Index()
-        {
-            var user = _db.AppUsers
-                                .Select(u => new UserListItemVM
-                                {
-                                    Id = u.Id,
-                                    Username = u.Username,
-                                    Avatar = u.Avatar,
-                                    DisplayName = u.DisplayName,
-                                })
-                                .OrderByDescending(u => u.Id)
-                                .ToList();
-            return View(user);
+        {       
+            return View();
         }
 
         public IActionResult Privacy()

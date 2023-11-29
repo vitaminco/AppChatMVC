@@ -105,3 +105,15 @@
     }
 }
 /*End*/
+
+/*Nút trạng thái*/
+.friend-status{
+    display: block;
+    width: 10px;
+    height:10px;
+    background-color: gray;
+    border-radius: 50%;
+}
+.online {
+    background-color: green;
+}

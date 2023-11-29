@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using AppChatMVC.ViewModels.Account;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Extensions.Logging;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 
 namespace AppChatMVC.Controllers
 {
@@ -85,12 +87,22 @@ namespace AppChatMVC.Controllers
                 ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không hợp lệ!!!");
                 return View();
             }
-            HttpContext.SetUserId(user.Id);
-            HttpContext.SetUserName(user.Username);
-            HttpContext.SetDislayName(user.DisplayName);
+            //
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim("DisplayName", user.DisplayName),
+            };
+
+            var claimsIdentity = new ClaimsIdentity(claims,"Cookies");
+            ClaimsPrincipal ClaimsPrincipal = new(claimsIdentity);
+
+            HttpContext.SignInAsync("Cookies",ClaimsPrincipal).Wait();
 
             return RedirectToAction("Index", "Home");
         }
+
         //Đăng xuất
         public IActionResult Logout()
         {

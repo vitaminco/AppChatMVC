@@ -14,6 +14,14 @@ builder.Services.AddDbContext<AppChatDbContext>(opt =>
 
 builder.Services.AddSession(); //có lệnh này mới sử dụng đc mvc
 
+builder.Services.AddAuthentication("Cookies")
+    .AddCookie(opt =>
+    {
+        opt.LoginPath = "/Account/Login";
+        opt.ExpireTimeSpan = TimeSpan.FromMinutes(90);
+        opt.Cookie.HttpOnly = true;
+    });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -24,12 +32,14 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 app.UseSession();//có lệnh này mới sử dụng đc mvc
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+app.UseAuthentication(); //lệnh này phải nằm trước lệnh Author; đăng nhập cookies
+app.UseAuthorization();//phân quyền
 
 app.MapControllerRoute(
     name: "default",
