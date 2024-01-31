@@ -1,4 +1,11 @@
-﻿.bg-main {
+﻿body {
+    overflow-y: hidden;
+    margin: 30px 0;
+}
+.body-chat{
+    padding: 10px;
+}
+.bg-main {
     background: #ff6e7f; /* fallback for old browsers */
     background: -webkit-linear-gradient(to top, #bfe9ff, #ff6e7f); /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to top, #bfe9ff, #ff6e7f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -12,9 +19,13 @@
     background-color: rgb(255,255,255,0.8);
 }
 
-
+.message-box.from-me{
+    flex-direction: row-reverse;
+}
 /*Thanh cuộn tin nhắn*/
-.pe-3 {
+
+.card-body {
+    max-height: 575px;
     overflow-y: scroll;
 }
 /*Các button*/

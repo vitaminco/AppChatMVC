@@ -1,4 +1,5 @@
 ﻿using AppChatMVC.Entities;
+using AppChatMVC.Hubs;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,7 @@ builder.Services.AddAuthentication("Cookies")
         opt.Cookie.HttpOnly = true;
     });
 
+builder.Services.AddSignalR();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -41,8 +43,10 @@ app.UseRouting();
 app.UseAuthentication(); //lệnh này phải nằm trước lệnh Author; đăng nhập cookies
 app.UseAuthorization();//phân quyền
 
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+app.MapHub<ChatHub>("/chat");//Hubs
 app.Run();

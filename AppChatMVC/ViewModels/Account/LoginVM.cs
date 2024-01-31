@@ -1,6 +1,6 @@
 ﻿using Microsoft.Build.Framework;
 
-namespace EShopMVCNet7.ViewModels.Account
+namespace AppChatMVC.ViewModels.Account
 {
     public class LoginVM
     {

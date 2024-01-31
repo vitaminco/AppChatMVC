@@ -1,83 +1,103 @@
-﻿@model IEnumerable<AppChatMVC.ViewModels.User.UserListItemVM>
+﻿@using System.Security.Claims;
+
+@model IEnumerable<AppChatMVC.ViewModels.User.UserListItemVM>
 @{
     ViewData["Title"] = "Home Page";
 }
-<section class="bg-gradient">
-    <div class="container mt-3">
-        <div class="row">
-            <!--Hiển thị bạn bè-->
-            <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0">
-                <div class="d-flex justify-content-between mx-2">
-                    <h5 class="font-weight-bold mb-3 text-center text-lg-start">Bạn bè</h5>
-                    <div>Cài đặt <i class="bi bi-gear"></i></div>
+@section scripts{
+    <script defer src="~/lib/alpinejs/cdn.min.js"></script>
+    <script src="~/lib/microsoft-signalr/signalr.min.js"></script>
+    <script src="~/js/chat.js" asp-append-version="true"></script>
+}
+
+<input type="hidden" id="me" value="@Context.User.FindFirstValue(ClaimTypes.Name)" />
+<div class="container mt-3 bg-gradient body-chat">
+    <div x-data="chatdata" class="row">
+        <!--Hiển thị bạn bè-->
+        <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0">
+            <div class="d-flex justify-content-between mx-2">
+
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control rounded-5" aria-label="Tìm kiếm" placeholder="Tìm kiếm">
+                    <button class="btn btn-outline-secondary rounded-5" type="button" data-bs-toggle="dropdown" aria-expanded="false">| Setting <i class="bi bi-gear"></i></button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#AddFriendModal">Thêm bạn</a></li>
+                        <li><a class="dropdown-item" href="#">Lời mời kết bạn</a></li>
+                        <li><a class="dropdown-item" href="#">Danh sách bạn bè</a></li>
+
+                    </ul>
                 </div>
-                <div class="card">
-                    <div class="card-body">
 
-                        <ul class="list-unstyled mb-0 pe-3">
-                            @for (int i = 0; i < 5; i++)
-                            {
-                                <li class="p-2 border-bottom d-flex" style="background-color: #eee; justify-content: space-between">
-                                    <div class="d-flex justify-content-between">
-                                        <div class="d-flex flex-row">
-                                            <p class="friend-status online"></p>
-                                            <img src="./upload/avata638360105684411298.jpg" alt="avatar"
-                                                 class="rounded-circle d-flex align-self-center me-3 shadow" width="60" />
+            </div>
 
-                                            <div class="pt-1">
-                                                <p class="fw-bold mb-0">Tên: Huỳnh Khánh Hưng</p>
-                                                <p class="small text-muted">NickName: Comy</p>
-                                            </div>
-                                            <span><i class="bi bi-envelope text-danger"></i></span>
+            <div class="card">
+                <div class="card-body">
+
+                    <ul class="list-unstyled mb-0">
+                        <template x-for="f in _friends">
+                            <li class="p-2 border-bottom d-flex" style="background-color: #eee; justify-content: space-between">
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex flex-row">
+                                        <p class="friend-status online"></p>
+                                        <img :src="f.avatar" alt="avatar"
+                                             class="rounded-circle d-flex align-self-center me-3 shadow" width="60" , height="60" />
+
+                                        <div class="pt-1">
+                                            <p class="fw-bold mb-0" x-text="f.username"></p>
+                                            <p class="small text-muted" x-text="f.displayName"></p>
                                         </div>
-                                        
+                                        <span><i class="bi bi-envelope text-danger"></i></span>
                                     </div>
 
-                                    <div class="dropdown">
-                                        <button class="rounded-circle bg-primary-subtle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="bi bi-three-dots"></i>
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            <li><a class="dropdown-item" href="#">Xóa cuộc trò chuyện</a></li>
-                                            <li><a class="dropdown-item" href="#">Xóa tin nhắn</a></li>
-                                            <li><a class="dropdown-item" href="#">Xóa bạn bè</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            }
-                        </ul>
+                                </div>
 
-                    </div>
+                                <div class="dropdown" style="align-items: center;display: flex;">
+                                    <button class="rounded-circle bg-primary-subtle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-three-dots"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li><a class="dropdown-item" href="#">Xóa cuộc trò chuyện</a></li>
+                                        <li><a class="dropdown-item" href="#">Xóa tin nhắn</a></li>
+                                        <li><a class="dropdown-item" href="#">Xóa bạn bè</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </template>
+                    </ul>
+
                 </div>
             </div>
-            
-            <!--Chat and nội dung-->
-            <div class="col-md-6 col-lg-7 col-xl-8">
-
-                <div class="pt-3 pe-3" data-mdb-perfect-scrollbar="true"
-                     style="position: relative; height: 600px">
-                    <div class="d-flex flex-row justify-content-start">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
-                             alt="avatar 1" style="width: 45px; height: 100%;">
-                        <div>
-                            <p class="small p-2 ms-3 mb-1 rounded-3 bg-white-80 bg-gradient">
-                                Bạn ăn cơm chưa
-                            </p>
-                            <p class="small ms-3 mb-3 rounded-3 text-muted float-end">12:00 PM | Aug 13</p>
-                        </div>
-                    </div>
-                </div>
-                <hr />
-                <div class="text-muted justify-content-start align-items-center pt-3 mt-2 input-group">
-                    <img class="mx-2 rounded" src="./upload/avata638360105684411298.jpg"
-                         alt="avatar 3" style="width: 40px; height: 100%;">
-                    <input type="text" class="form-control form-control-lg rounded" id="exampleFormControlInput2"
-                           placeholder="Type message">
-                    <button class="ms-4 fs-4 text-light rounded-circle bg-dark"><i class="bi bi-send"></i></button>
-                </div>
-            </div>
-
         </div>
 
+        <!--Chat and nội dung-->
+        <div class="col-md-6 col-lg-7 col-xl-8">
+            <div class="card-body" style="height: 537px;">
+
+                <div class="pt-3 pe-3 conversation" style="position: relative;">
+                    <template x-for="item in _messages">
+
+                        <div class="message-box" x-bind:class="item.isFromMe ? 'from-me' : ''">
+
+                            <p class=" bg-white-80 bg-primary" x-text="item.message">
+
+                            </p>
+                            <p class=" mx-3" x-text="item.time"></p>
+                        </div>
+
+                    </template>
+                </div>
+
+            </div>
+            <hr />
+            <div class="text-muted justify-content-end align-items-center mt-2 input-group">
+
+                <input type="text" id="mesg" class="form-control form-control-lg rounded"
+                       placeholder="Message">
+                <button class="ms-4 fs-4 text-light rounded-circle bg-primary" x-on:click="sendMessage()"><i class="bi bi-send"></i></button>
+            </div>
+        </div>
+
+        <partial name="_AddFriendModal" >  
     </div>
-</section>
+
+</div>

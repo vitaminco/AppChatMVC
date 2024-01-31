@@ -1,7 +1,7 @@
 ﻿
 using AppChatMVC.Common;
 using AppChatMVC.Entities;
-using EShopMVCNet7.ViewModels.Account;
+using AppChatMVC.ViewModels.Account;
 using Microsoft.AspNetCore.Mvc;
 using AppChatMVC.ViewModels.Account;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -42,7 +42,7 @@ namespace AppChatMVC.Controllers
                 DisplayName = userVM.DisplayName,
                 CreatedAt = DateTime.Now,
             };
-            //hình ảnh(CoverImgEven)
+            //hình ảnh(Avatar)
             user.Avatar = UploadFile(userVM.Avatar, env.WebRootPath);
             //hash mật khẩu
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);

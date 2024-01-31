@@ -8,6 +8,7 @@ namespace AppChatMVC.Controllers
     public class ChattingAppControllerBase : Controller
     {
         protected readonly AppChatDbContext _db;
+        
 
         public ChattingAppControllerBase(AppChatDbContext db)
         {
